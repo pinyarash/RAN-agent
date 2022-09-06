@@ -17,9 +17,9 @@ LR = 0.001
 
 NUM_TRAIN_EPOCHS = 10
 
-env = gym.make("CartPole-v0")
-state_size = 4
-num_actions = env.action_space.n
+# env = gym.make("CartPole-v0")
+# state_size = 4
+# num_actions = env.action_space.n
 
 ent_discount_val = ENTROPY_LOSS_WEIGHT
 

@@ -33,7 +33,7 @@ wandb.config.update(args) # adds all of the arguments as config variables
 
 port = 5555
 simTime = 20 # seconds
-stepTime = 5  # seconds
+stepTime = 0.5  # seconds
 seed = 0
 simArgs = {"--simTime": simTime,
            "--testArg": 123}
