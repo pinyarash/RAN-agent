@@ -10,7 +10,7 @@ from networks import ActorNetwork, CriticNetwork
 
 class Agent:
     def __init__(self, n_actions, input_dims, gamma=0.99, alpha=0.0003,
-                 gae_lambda=0.95, policy_clip=0.4, batch_size=64,
+                 gae_lambda=0.95, policy_clip=0.2, batch_size=64,
                  n_epochs=10, chkpt_dir='models/'):
         self.gamma = gamma
         self.policy_clip = policy_clip
@@ -27,20 +27,20 @@ class Agent:
         self.critic.compile(optimizer=Adam(learning_rate=alpha))
         self.memory = PPOMemory(batch_size)
         self.noise_t = 0.0
-        self.epsilon = 0.2
+        self.epsilon = 0.3
 
     def store_transition(self, state, action, probs, vals, reward, done):
         self.memory.store_memory(state, action, probs, vals, reward, done)
 
-    def save_models(self):
+    def save_models(self, name):
         print('... saving models ...')
-        self.actor.save(self.chkpt_dir + 'actor')
-        self.critic.save(self.chkpt_dir + 'critic')
+        self.actor.save(self.chkpt_dir + name +'_actor')
+        self.critic.save(self.chkpt_dir + name + '_critic')
 
-    def load_models(self):
+    def load_models(self, name):
         print('... loading models ...')
-        self.actor = keras.models.load_model(self.chkpt_dir + 'actor')
-        self.critic = keras.models.load_model(self.chkpt_dir + 'critic')
+        self.actor = keras.models.load_model(self.chkpt_dir + name +'_actor')
+        self.critic = keras.models.load_model(self.chkpt_dir + name +'_critic')
 
     def choose_action_continous(self, observation, evaluate=True):
         state = tf.convert_to_tensor([observation], dtype=tf.float32)
