@@ -7,6 +7,8 @@ class PPOMemory:
         self.probs = []
         self.vals = []
         self.actions = []
+        self.delay_list = []
+        self.ue_noise_list = []
         self.rewards = []
         self.dones = []
 
@@ -23,15 +25,19 @@ class PPOMemory:
             np.array(self.actions),\
             np.array(self.probs),\
             np.array(self.vals),\
+            np.array(self.delay_list),\
+            np.array(self.ue_noise_list),\
             np.array(self.rewards),\
             np.array(self.dones),\
             batches
 
-    def store_memory(self, state, action, probs, vals, reward, done):
+    def store_memory(self, state, action, probs, vals, delay,noise, reward, done):
         self.states.append(state)
         self.actions.append(action)
         self.probs.append(probs)
         self.vals.append(vals)
+        self.delay_list.append(delay)
+        self.ue_noise_list.append(noise)
         self.rewards.append(reward)
         self.dones.append(done)
 
@@ -42,3 +48,5 @@ class PPOMemory:
         self.rewards = []
         self.dones = []
         self.vals = []
+        self.delay_list = []
+        self.ue_noise_list = []
